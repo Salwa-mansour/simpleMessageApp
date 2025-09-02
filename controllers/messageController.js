@@ -23,23 +23,21 @@ const getAllMessages =(req,res)=>{
   }
 // get 
 const getMessageForm = (req,res)=>{
-    res.render("new");
+    res.render("new",{'message':'please write your message'});
 }
 const createNewMessage =(req,res)=>{
 
    const newMessage ={
-  //  id:data.messages[data.messages.length -1].id +1||1,
     user:req.body.user || '',
     text:req.body.text || '',
-   
    }
 
    if(!newMessage.user || !newMessage.text){
-    return res.status(400).json({'message':'name and message are required'});
+    return res.status(400).render("new",{'message':'name and message are required'});
    }
    data.setMessages([...data.messages,newMessage]);
    res.status(201)
-   .json(data.messages);
+   .render("index",{allMessages:data.messages});
 
   }
 
